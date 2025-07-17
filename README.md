@@ -14,3 +14,6 @@ O aplicativo utiliza um banco de dados SQLite local para funcionar mesmo sem con
 
 ### Offline
 O uso do pacote `sqflite` permite armazenar dados localmente, garantindo que o aplicativo funcione mesmo sem acesso à internet.
+
+### Teste de conexão com Supabase
+Na tela principal há um botão **Testar Supabase** que busca os registros da tabela `CADE_EMPRESA` no Supabase e exibe a quantidade encontrada.
