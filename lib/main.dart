@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'db/database_helper.dart';
+import 'supabase/supabase_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SupabaseManager().init();
   await DatabaseHelper().database;
   runApp(const MyApp());
 }
