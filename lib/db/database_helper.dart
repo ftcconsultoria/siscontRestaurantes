@@ -30,10 +30,30 @@ class DatabaseHelper {
         await db.execute('''
           CREATE TABLE sample (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT
+            name TEXT,
+            synced INTEGER DEFAULT 0
           )
         ''');
       },
     );
+  }
+
+  Future<int> insertSample(String name) async {
+    final dbClient = await database;
+    return await dbClient.insert('sample', {
+      'name': name,
+      'synced': 0,
+    });
+  }
+
+  Future<List<Map<String, dynamic>>> getPendingSamples() async {
+    final dbClient = await database;
+    return await dbClient.query('sample', where: 'synced = ?', whereArgs: [0]);
+  }
+
+  Future<void> markSampleSynced(int id) async {
+    final dbClient = await database;
+    await dbClient
+        .update('sample', {'synced': 1}, where: 'id = ?', whereArgs: [id]);
   }
 }
