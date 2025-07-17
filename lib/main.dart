@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'db/database_helper.dart';
 import 'supabase/supabase_manager.dart';
+import 'sync_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SupabaseManager().init();
   await DatabaseHelper().database;
+  SyncManager().start();
   runApp(const MyApp());
 }
 
@@ -32,6 +34,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String _result = '';
 
+  Future<void> _addSample() async {
+    final id =
+        await DatabaseHelper().insertSample('Registro ${DateTime.now()}');
+    setState(() {
+      _result = 'Inserido localmente id $id';
+    });
+  }
+
   Future<void> _fetchEmpresas() async {
     try {
       final data =
@@ -55,6 +65,11 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text('Bem-vindo ao Siscont Restaurantes!'),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: _addSample,
+              child: const Text('Adicionar Registro Local'),
+            ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _fetchEmpresas,
