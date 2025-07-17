@@ -19,3 +19,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+dependency_overrides:
+  sign_in_with_apple: null
+  sign_in_with_apple_platform_interface: null
+  sign_in_with_apple_web: null
+
+  
