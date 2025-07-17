@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'db/database_helper.dart';
 import 'supabase/supabase_manager.dart';
 import 'sync_manager.dart';
+import 'config_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -74,6 +75,18 @@ class _HomePageState extends State<HomePage> {
             ElevatedButton(
               onPressed: _fetchEmpresas,
               child: const Text('Testar Supabase'),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const ConfigPage(),
+                  ),
+                );
+              },
+              child: const Text('Configurar Empresa'),
             ),
             const SizedBox(height: 20),
             Text(_result),
